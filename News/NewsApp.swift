@@ -9,9 +9,17 @@ import SwiftUI
 
 @main
 struct NewsApp: App {
+    @ObservedObject var monitor = NetworkMonitor()
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            if monitor.isConnected {
+                NewsListView()
+            } else {
+                Text("Check Internet Connection!")
+                    .font(.largeTitle)
+                    .foregroundColor(.red)
+            }
         }
     }
 }
